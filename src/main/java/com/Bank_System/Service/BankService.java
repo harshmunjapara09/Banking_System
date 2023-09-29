@@ -126,4 +126,8 @@ public class BankService {
         bankRepo.save(sender);
         return list;
     }
+
+    public Bank checkalance(String accountNumber) {
+        return bankRepo.FindByAccountNumber(accountNumber);
+    }
 }

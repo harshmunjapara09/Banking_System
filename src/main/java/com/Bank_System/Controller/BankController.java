@@ -32,4 +32,9 @@ public class BankController {
     public List<Bank> transferAmount(@RequestParam String senderAccount,@RequestParam String receiverAccount,@RequestParam Double amount){
         return bankService.transferAmount(senderAccount,receiverAccount,amount);
     }
+
+    @GetMapping("/checkBalance")
+    public Bank checkalance(@RequestParam String accountNumber){
+        return bankService.checkalance(accountNumber);
+    }
 }

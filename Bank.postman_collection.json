@@ -145,6 +145,31 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "checkBalance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/HarshBank/checkBalance?accountNumber=000000000001",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"HarshBank",
+						"checkBalance"
+					],
+					"query": [
+						{
+							"key": "accountNumber",
+							"value": "000000000001"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
