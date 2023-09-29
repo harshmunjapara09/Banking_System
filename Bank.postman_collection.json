@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "79f0ba2c-d848-4fec-a1c8-3f5c32fabc94",
+		"name": "Bank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29238904"
+	},
+	"item": [
+		{
+			"name": "Opening Acccount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"name\" : \"Harsh Munjapara\",\r\n        \"accountNumber\" : \"000000000001\",\r\n        \"ifscCode\" : \"HARSHOO9\",\r\n        \"address\" : \"Punagam, Surat.\",\r\n        \"branchName\" : \"Punagam, Surat.\",\r\n        \"amount\" : 2000.0\r\n    },\r\n    {\r\n        \"name\" : \"Yash Sojitra\",\r\n        \"accountNumber\" : \"000000000002\",\r\n        \"ifscCode\" : \"HARSHOO9\",\r\n        \"address\" : \"Jakatnaka, Surat.\",\r\n        \"branchName\" : \"Punagam, Surat.\",\r\n        \"amount\" : 2000.0\r\n    },\r\n    {\r\n        \"name\" : \"Kevin Changani\",\r\n        \"accountNumber\" : \"000000000003\",\r\n        \"ifscCode\" : \"HARSHOO9\",\r\n        \"address\" : \"Punagam, Surat.\",\r\n        \"branchName\" : \"Punagam, Surat.\",\r\n        \"amount\" : 2000.0\r\n    },\r\n     {\r\n        \"name\" : \"Krishna \",\r\n        \"accountNumber\" : \"000000000004\",\r\n        \"ifscCode\" : \"HARSHOO9\",\r\n        \"address\" : \"Gokul, Utterpradesh.\",\r\n        \"branchName\" : \"Punagam, Surat.\",\r\n        \"amount\" : 2000.0\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/HarshBank/open",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"HarshBank",
+						"open"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deposite",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/HarshBank/deposite?accountNumber=1&amount=1000",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"HarshBank",
+						"deposite"
+					],
+					"query": [
+						{
+							"key": "accountNumber",
+							"value": "1"
+						},
+						{
+							"key": "amount",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Withdraw",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/HarshBank/withdraw?accountNumber=1&amount=1000",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"HarshBank",
+						"withdraw"
+					],
+					"query": [
+						{
+							"key": "accountNumber",
+							"value": "1"
+						},
+						{
+							"key": "amount",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{bank}}transfer?senderAccount=000000000001&amount=300&receiverAccount=000000000002",
+					"host": [
+						"{{bank}}transfer"
+					],
+					"query": [
+						{
+							"key": "senderAccount",
+							"value": "000000000001"
+						},
+						{
+							"key": "amount",
+							"value": "300"
+						},
+						{
+							"key": "receiverAccount",
+							"value": "000000000002"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "passbook",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/HarshBank/Statement/passbook?accountNumber=000000000002",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"HarshBank",
+						"Statement",
+						"passbook"
+					],
+					"query": [
+						{
+							"key": "accountNumber",
+							"value": "000000000002"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
