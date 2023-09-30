@@ -1,6 +1,7 @@
 package com.Bank_System.Controller;
 
 import com.Bank_System.Model.Bank;
+import com.Bank_System.Model.ClosedAccount;
 import com.Bank_System.Service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,5 +37,10 @@ public class BankController {
     @GetMapping("/checkBalance")
     public Bank checkalance(@RequestParam String accountNumber){
         return bankService.checkalance(accountNumber);
+    }
+
+    @DeleteMapping("/close")
+    public ClosedAccount closeAccount(@RequestParam String accountNumber){
+        return bankService.closeAccount(accountNumber);
     }
 }
