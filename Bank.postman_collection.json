@@ -170,6 +170,31 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "CloseAccount",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/HarshBank/close?accountNumber=000000000001",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"HarshBank",
+						"close"
+					],
+					"query": [
+						{
+							"key": "accountNumber",
+							"value": "000000000001"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
