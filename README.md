@@ -1,4 +1,4 @@
-# Banking System Simulation
+# Banking System 
 
 ## Overview
 Project Fractures is a comprehensive banking system simulation that allows users to perform various banking operations such as opening a bank account, withdrawing money, depositing money, closing an account, generating a passbook, and sending passbook details via email.
