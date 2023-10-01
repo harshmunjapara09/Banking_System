@@ -25,9 +25,8 @@ public class TransacationController {
     }
 
     @GetMapping("/passbook")
-    public List<TransactionHistory> getAll(@RequestParam Long accountNumber){
+    public List<TransactionHistory> getAll(@RequestParam Long accountNumber, String email){
         List<TransactionHistory> list = transcationService.getAll(accountNumber);
-        String email = "harshmunjapara005@gmail.com";
         emailService.sendTransactionHistoryEmail(email,list);
         return list;
     }
