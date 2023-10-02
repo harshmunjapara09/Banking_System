@@ -5,7 +5,6 @@ import com.Bank_System.Model.TransactionHistory;
 import com.Bank_System.Service.EmailService;
 import com.Bank_System.Service.TranscationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

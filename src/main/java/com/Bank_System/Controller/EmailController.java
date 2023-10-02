@@ -15,16 +15,16 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/sendTransactionHistoryEmail")
-    public ResponseEntity<String> sendTransactionHistoryEmail(
-            @RequestParam String recipientEmail,
-            @RequestParam List<TransactionHistory> transactionHistoryList) {
-
-        if (transactionHistoryList.isEmpty()) {
-            return ResponseEntity.badRequest().body("Transaction history is empty.");
-        }
-
-        emailService.sendTransactionHistoryEmail(recipientEmail, transactionHistoryList);
-        return ResponseEntity.ok("Email sent successfully.");
-    }
+//    @PostMapping("/sendTransactionHistoryEmail")
+//    public ResponseEntity<String> sendTransactionHistoryEmail(
+//            @RequestParam String recipientEmail,
+//            @RequestParam List<TransactionHistory> transactionHistoryList) {
+//
+//        if (transactionHistoryList.isEmpty()) {
+//            return ResponseEntity.badRequest().body("Transaction history is empty.");
+//        }
+//
+//        emailService.sendTransactionHistoryEmail(recipientEmail, transactionHistoryList);
+//        return ResponseEntity.ok("Email sent successfully.");
+//    }
 }
