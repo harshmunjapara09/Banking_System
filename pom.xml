@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.Bank_System</groupId>
 	<artifactId>bank</artifactId>
@@ -37,20 +37,19 @@
 			<version>2.0.1</version> <!-- Use the latest version -->
 		</dependency>
 
-		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>javax.mail</artifactId>
-			<version>1.6.2</version> <!-- Exclude specific JavaMail version -->
-			<scope>provided</scope>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.sun.mail</groupId>-->
+<!--			<artifactId>javax.mail</artifactId>-->
+<!--			<version>1.6.2</version> &lt;!&ndash; Exclude specific JavaMail version &ndash;&gt;-->
+<!--			<scope>provided</scope>-->
+<!--		</dependency>-->
 
 
-
-		<dependency>
-			<groupId>jakarta.mail</groupId>
-			<artifactId>jakarta.mail-api</artifactId>
-			<version>2.0.1</version> <!-- Use the latest version -->
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>jakarta.mail</groupId>-->
+<!--			<artifactId>jakarta.mail-api</artifactId>-->
+<!--			<version>2.0.1</version> &lt;!&ndash; Use the latest version &ndash;&gt;-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

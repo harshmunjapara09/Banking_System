@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BankRepo extends JpaRepository<Bank,Long> {
-    @Query(value = "select * from bank where account_number=:accountNumber",nativeQuery = true)
-     Bank FindByAccountNumber(String accountNumber);
+//    @Query(value = "select * from bank where account_number=:accountNumber",nativeQuery = true)
+     Bank findByAccountNumber(String accountNumber);
 
 }

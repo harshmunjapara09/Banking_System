@@ -4,6 +4,7 @@ import com.Bank_System.Model.Bank;
 import com.Bank_System.Model.ClosedAccount;
 import com.Bank_System.Model.TransactionHistory;
 import com.Bank_System.Repository.BankRepo;
+import com.Bank_System.Repository.TranscationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +18,16 @@ public class BankService {
     TranscationService transcationService;
     @Autowired
     ClosedAccountService closedAccountService;
+    @Autowired
+    TranscationRepo transcationRepo;
 
 
     public List<Bank> openingAccount(List<Bank> list) {
         return bankRepo.saveAll(list);
     }
 
-    public Bank FindByAccountNumberforDeposite(String accountNumber, Double amount) {
-        Bank update = bankRepo.FindByAccountNumber(accountNumber);
+    public Bank findByAccountNumberforDeposite(String accountNumber, Double amount) {
+        Bank update = bankRepo.findByAccountNumber(accountNumber);
         Double currentAmount = update.getAmount();
         currentAmount += amount;
         update.setAccountNumber(accountNumber);
@@ -35,7 +38,7 @@ public class BankService {
         th.setIfscCode(update.getIfscCode());
         th.setName(update.getName());
         th.setAmount(amount);
-        Long transactionId = generateUniqueTransactionId();
+        Long transactionId = Math.abs(generateUniqueTransactionId());
         th.setTransactionId(transactionId);
         th.setAccountNumber(update.getAccountNumber());
         th.setStatus("Deposite");
@@ -44,8 +47,8 @@ public class BankService {
         return bankRepo.save(update);
     }
 
-    public Bank FindByAccountNumberforWithdraw(String accountNumber, Double amount) {
-        Bank update = bankRepo.FindByAccountNumber(accountNumber);
+    public Bank findByAccountNumberforWithdraw(String accountNumber, Double amount) {
+        Bank update = bankRepo.findByAccountNumber(accountNumber);
         if (update.getAmount() < amount) {
             return update;
         }
@@ -59,7 +62,7 @@ public class BankService {
         th.setIfscCode(update.getIfscCode());
         th.setName(update.getName());
         th.setAmount(amount);
-        Long transactionId = generateUniqueTransactionId();
+        Long transactionId = Math.abs(generateUniqueTransactionId());
         th.setTransactionId(transactionId);
         th.setAccountNumber(update.getAccountNumber());
         th.setStatus("Withdraw");
@@ -79,8 +82,8 @@ public class BankService {
 
 
     public List<Bank> transferAmount(String senderAccount, String receiverAccount, Double amount) {
-        Bank sender = bankRepo.FindByAccountNumber(senderAccount);
-        Bank recevicer = bankRepo.FindByAccountNumber(receiverAccount);
+        Bank sender = bankRepo.findByAccountNumber(senderAccount);
+        Bank recevicer = bankRepo.findByAccountNumber(receiverAccount);
 
         List<Bank> list = new ArrayList<>();
         list.add(sender);
@@ -99,7 +102,7 @@ public class BankService {
         th.setIfscCode(sender.getIfscCode());
         th.setName(sender.getName());
         th.setAmount(amount);
-        Long transactionId = generateUniqueTransactionId();
+        Long transactionId = Math.abs(generateUniqueTransactionId());
         th.setTransactionId(transactionId);
         th.setAccountNumber(sender.getAccountNumber());
         th.setStatus("Debited");
@@ -127,11 +130,13 @@ public class BankService {
     }
 
     public Bank checkalance(String accountNumber) {
-        return bankRepo.FindByAccountNumber(accountNumber);
+        return bankRepo.findByAccountNumber(accountNumber);
     }
 
     public ClosedAccount closeAccount(String accountNumber) {
-        Bank bank = bankRepo.FindByAccountNumber(accountNumber);
+        Bank bank = bankRepo.findByAccountNumber(accountNumber);
+        List<TransactionHistory> list = new ArrayList<>();
+        list = transcationService.getAll(Long.parseLong(accountNumber));
         ClosedAccount closedAccount = new ClosedAccount();
         closedAccount.setAccountNumber(bank.getAccountNumber());
         closedAccount.setAddress(bank.getAddress());
@@ -142,6 +147,8 @@ public class BankService {
 
         closedAccountService.save(closedAccount);
         bankRepo.delete(bank);
+        transcationRepo.deleteAll(list);
+
         return closedAccount;
     }
 }

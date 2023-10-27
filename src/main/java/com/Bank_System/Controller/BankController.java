@@ -21,12 +21,12 @@ public class BankController {
 
     @PostMapping("/deposite")
     public Bank depositeAmount(@RequestParam String accountNumber, Double amount){
-        return bankService.FindByAccountNumberforDeposite(accountNumber,amount);
+        return bankService.findByAccountNumberforDeposite(accountNumber,amount);
     }
 
     @PostMapping("/withdraw")
     public Bank withdrawAmount(@RequestParam String accountNumber, Double amount){
-        return bankService.FindByAccountNumberforWithdraw(accountNumber,amount);
+        return bankService.findByAccountNumberforWithdraw(accountNumber,amount);
     }
 
     @PostMapping("/transfer")
