@@ -20,22 +20,22 @@ public class BankController {
     }
 
     @PostMapping("/deposite")
-    public Bank depositeAmount(@RequestParam String accountNumber, Double amount){
+    public String depositeAmount(@RequestParam String accountNumber, Double amount){
         return bankService.findByAccountNumberforDeposite(accountNumber,amount);
     }
 
     @PostMapping("/withdraw")
-    public Bank withdrawAmount(@RequestParam String accountNumber, Double amount){
+    public String withdrawAmount(@RequestParam String accountNumber, Double amount){
         return bankService.findByAccountNumberforWithdraw(accountNumber,amount);
     }
 
     @PostMapping("/transfer")
-    public List<Bank> transferAmount(@RequestParam String senderAccount,@RequestParam String receiverAccount,@RequestParam Double amount){
+    public String transferAmount(@RequestParam String senderAccount,@RequestParam String receiverAccount,@RequestParam Double amount){
         return bankService.transferAmount(senderAccount,receiverAccount,amount);
     }
 
     @GetMapping("/checkBalance")
-    public Bank checkalance(@RequestParam String accountNumber){
+    public String checkalance(@RequestParam String accountNumber){
         return bankService.checkalance(accountNumber);
     }
 

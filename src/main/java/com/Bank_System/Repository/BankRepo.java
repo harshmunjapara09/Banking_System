@@ -10,4 +10,5 @@ public interface BankRepo extends JpaRepository<Bank,Long> {
 //    @Query(value = "select * from bank where account_number=:accountNumber",nativeQuery = true)
      Bank findByAccountNumber(String accountNumber);
 
+     boolean existsByEmailAndAccountNumber(String email, String acNumber);
 }

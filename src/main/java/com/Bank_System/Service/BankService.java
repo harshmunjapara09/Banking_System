@@ -3,8 +3,10 @@ package com.Bank_System.Service;
 import com.Bank_System.Model.Bank;
 import com.Bank_System.Model.ClosedAccount;
 import com.Bank_System.Model.TransactionHistory;
+import com.Bank_System.Model.User;
 import com.Bank_System.Repository.BankRepo;
 import com.Bank_System.Repository.TranscationRepo;
+import com.Bank_System.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +22,24 @@ public class BankService {
     ClosedAccountService closedAccountService;
     @Autowired
     TranscationRepo transcationRepo;
+    @Autowired
+    UserRepo userRepo;
 
 
     public List<Bank> openingAccount(List<Bank> list) {
         return bankRepo.saveAll(list);
     }
 
-    public Bank findByAccountNumberforDeposite(String accountNumber, Double amount) {
+    public String findByAccountNumberforDeposite(String accountNumber, Double amount) {
+        User user = userRepo.getByUserAccountNumber(accountNumber);
         Bank update = bankRepo.findByAccountNumber(accountNumber);
+
+        if (user==null){
+            return "Please Create a Net Banking account";
+        }
+        if (!user.getStatus().equals("Logged")){
+            return "Please Login First";
+        }
         Double currentAmount = update.getAmount();
         currentAmount += amount;
         update.setAccountNumber(accountNumber);
@@ -44,13 +56,22 @@ public class BankService {
         th.setStatus("Deposite");
         transcationService.add(th);
 
-        return bankRepo.save(update);
+        bankRepo.save(update);
+        return "Deposit Successfully : " + amount;
     }
 
-    public Bank findByAccountNumberforWithdraw(String accountNumber, Double amount) {
+    public String findByAccountNumberforWithdraw(String accountNumber, Double amount) {
+        User user = userRepo.getByUserAccountNumber(accountNumber);
         Bank update = bankRepo.findByAccountNumber(accountNumber);
+        if (user==null){
+            return "Please Create a Net Banking account";
+        }
+
+        if (!user.getStatus().equals("Logged")){
+            return "Please Login First";
+        }
         if (update.getAmount() < amount) {
-            return update;
+            return "Not a Balance";
         }
         Double currentAmount = update.getAmount();
         currentAmount -= amount;
@@ -68,7 +89,8 @@ public class BankService {
         th.setStatus("Withdraw");
         transcationService.add(th);
 
-        return bankRepo.save(update);
+        bankRepo.save(update);
+        return "Withdraw Successfully : " + amount;
     }
 
     private Long generateUniqueTransactionId() {
@@ -81,17 +103,21 @@ public class BankService {
     }
 
 
-    public List<Bank> transferAmount(String senderAccount, String receiverAccount, Double amount) {
+    public String transferAmount(String senderAccount, String receiverAccount, Double amount) {
+
+        User user = userRepo.getByUserAccountNumber(senderAccount);
+        if (user==null){
+            return "Please Create a Net Banking account";
+        }
+        if (!user.getStatus().equals("Logged")){
+            return "Please Login First";
+        }
         Bank sender = bankRepo.findByAccountNumber(senderAccount);
         Bank recevicer = bankRepo.findByAccountNumber(receiverAccount);
 
-        List<Bank> list = new ArrayList<>();
-        list.add(sender);
-        list.add(recevicer);
-
         Double currentAmountSender = sender.getAmount();
         if (currentAmountSender < amount) {
-            return list;
+            return "Not a Balance";
         }
         currentAmountSender -= amount;
         sender.setAccountNumber(sender.getAccountNumber());
@@ -126,11 +152,19 @@ public class BankService {
 
         bankRepo.save(recevicer);
         bankRepo.save(sender);
-        return list;
+        return "Sender Accounr  : " +  senderAccount + "  Receiver Account : " + receiverAccount + " Amount : " + amount;
     }
 
-    public Bank checkalance(String accountNumber) {
-        return bankRepo.findByAccountNumber(accountNumber);
+    public String checkalance(String accountNumber) {
+        User user = userRepo.getByUserAccountNumber(accountNumber);
+        if (user==null){
+            return "Please Create a Net Banking account";
+        }
+        if (!user.getStatus().equals("Logged")){
+            return "Please Login First";
+        }
+        Bank bank = bankRepo.findByAccountNumber(accountNumber);
+        return "Your Balance :  " + bank.getAmount();
     }
 
     public ClosedAccount closeAccount(String accountNumber) {

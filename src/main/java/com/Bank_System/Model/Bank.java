@@ -19,4 +19,5 @@ public class Bank {
     String address;
     String branchName;
     Double amount;
+    String email;
 }

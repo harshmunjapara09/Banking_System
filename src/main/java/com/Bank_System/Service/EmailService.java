@@ -50,30 +50,27 @@ public class EmailService {
             // Handle the exception
         }
     }
+    public void sendOtpEmail(String email, String otp)  {
+        try {
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
+            helper.setTo(email);
+            helper.setSubject("OTP Verification");
 
-//    public void sendTransactionHistoryEmail(String recipientEmail, List<TransactionHistory> transactionHistoryList) {
-//        try {
-//            MimeMessage message = javaMailSender.createMimeMessage();
-//            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-//
-//            helper.setTo(recipientEmail);
-//            helper.setSubject("Transaction History");
-//            helper.setText("Please find attached the transaction history.");
-//
-//            // You can format the transaction history as needed and attach it here
-//            // For simplicity, we'll assume a plain text format for the example.
-//            StringBuilder transactionHistoryText = new StringBuilder();
-//            for (TransactionHistory history : transactionHistoryList) {
-//                transactionHistoryText.append(history.toString()).append("\n");
-//            }
-//            helper.setText(transactionHistoryText.toString());
-//
-//            javaMailSender.send(message);
-//        } catch (jakarta.mail.MessagingException e) {
-//            e.printStackTrace();
-//            // Handle the exception
-//        }
+            StringBuilder body = new StringBuilder();
+
+            body.append("Login Otp : ");
+            body.append(otp);
+            helper.setText(body.toString(), true);
+            javaMailSender.send(message);
+        }catch (MessagingException e) {
+            e.printStackTrace();
+            // Handle the exception
+        }
+
+    }
+
 
     
 }
