@@ -39,12 +39,9 @@ public class BankController {
         return bankService.checkalance(accountNumber);
     }
 
-//    @DeleteMapping("/close")
-//    public ClosedAccount closeAccount(@RequestParam String accountNumber){
-//        return bankService.closeAccount(accountNumber);
-//    }
     @DeleteMapping("/close")
     public ClosedAccount closeAccount(@RequestParam String accountNumber){
         return bankService.closeAccount(accountNumber);
     }
+
 }
